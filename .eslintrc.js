@@ -1,20 +1,24 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es6: true,
     node: true,
+    jest: true,
   },
-  extends: "eslint:recommended",
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+    ecmaVersion: 2022,
   },
+  extends: ['airbnb-base', 'plugin:prettier/recommended', 'prettier'],
   rules: {
-    // "off" or 0      -> 규칙을 해제
-    // "warn" or 1   ->규칙을 경고로 설정합니다(종료 코드에는 영향을 주지 않음).
-    // "error" or 2  ->규칙을 오류로 설정합니다(종료 코드는 1임).
-    "no-unused-vars": "off", // 미사용변수
-    "no-console": "off", // console
-    semi: "warn", // 세미콜론
+    'max-depth': ['error', 2],
+    'max-lines-per-function': ['error', 16],
+    'operator-linebreak': ['error', 'before'],
+    'no-unused-expressions': ['error', { allowTernary: true }],
   },
+  'prettier/prettier': [
+    'error',
+    {
+      endOfLine: 'auto',
+    },
+  ],
 };
