@@ -1,41 +1,47 @@
-class AnalogClock {
-  constructor(container) {
-    this.container = container;
-    this.createClock();
-    this.startClock();
+const AnalogClock = ($container) => {
+  /********************************  html element 동적 생성하기 시작 ***********************/
+  for (let i = 1; i <= 3; i++){
+   $container.insertAdjacentHTML('beforeend', `<div class='hand' ></div>`);
   }
+  const handdleClock =$container.querySelectorAll('.hand');
+    handdleClock[0].classList.add('hour');
+    handdleClock[1].classList.add('minute');
+    handdleClock[2].classList.add('second');
 
-  createClock() {
-    for (let i = 1; i <= 3; i++) {
-      this.container.insertAdjacentHTML('beforeend', `<div class='hand'></div>`);
-    }
-    const hands = this.container.querySelectorAll('.hand');
-    hands[0].classList.add('hour');
-    hands[1].classList.add('minute');
-    hands[2].classList.add('second');
-
-    for (let i = 1; i <= 12; i++) {
-      this.container.insertAdjacentHTML('beforeend', `<div class="time time${i}">|</div>`);
-    }
+  for (let i = 1; i <= 12; i++){
+  $container.insertAdjacentHTML('beforeend', `<div class="time time${i}">|</div>`);
   }
+  /************************  html element 동적 생성하기 끝  ***********************************/
 
-  startClock() {
-    setInterval(() => {
-      const now = new Date();
-      const seconds = now.getSeconds();
-      const minutes = now.getMinutes();
-      const hours = now.getHours();
+  /*********************  자바스크립트로 --deg 값 변경하기 시작 *************************/
+ setInterval(() => {
 
-      const degSec = seconds * (360 / 60);
-      const degMin = minutes * (360 / 60) + seconds * (360 / 60 / 60);
-      const degHour = hours * (360 / 12) + minutes * (360 / 12 / 60);
+    //현재 시간 가져오기
+    const now = new Date();
 
-      const hands = this.container.querySelectorAll('.hand');
-      hands[0].style.setProperty('--deg', `${degHour}`);
-      hands[1].style.setProperty('--deg', `${degMin}`);
-      hands[2].style.setProperty('--deg', `${degSec}`);
-    }, 1000);
-  }
-}
+    //현재 시간을 단위로 추출
+    const seconds = now.getSeconds();  // 0 ~ 59 사이 정수 반환
+    const minutes = now.getMinutes();  // 0 ~ 59 사이 정수 반환
+    const hours = now.getHours();  // 0 ~ 23 사이 정수반환
+
+    //초침 , 분침 , 시침  -> 차례대로 각도
+    //초침 -> 1초당 몇도 회전
+    const degSec = seconds * (360 / 60);   // ex) 5초 -> 5 * 6 = 30도 
+
+    //분침 -> 1분당 몇도, 1초당 몇도회전
+    const degMin = minutes * (360 / 60) + seconds * (360 / 60 / 60);  // ex) 5분 -> 5 * 6 = 30도
+
+    //시침 -> 1시간당 30도, 1분당 몇도회전
+    // ex) 4시 -> ex) 4 * 30 = 120도
+    //ex2) 4시 15분 -> 4 *30 + 15 * 1/2
+    const degHour = hours * (360 / 12) + minutes * (360 / 12 / 60);
+
+    /* const hands = document.querySelectorAll('.hand'); */
+   handdleClock[0].style.setProperty('--deg', `${degHour}`);
+   handdleClock[1].style.setProperty('--deg', `${degMin}`);
+    handdleClock[2].style.setProperty('--deg', `${degSec}`);
+    
+  }, 1000);
+};
 
 export default AnalogClock;
