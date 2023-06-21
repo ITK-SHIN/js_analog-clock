@@ -45,6 +45,6 @@ function setClock() {
 
 export default AnalogClock;
 
-//첫 번째 for  forEach 메소드를 사용하여 간단하게 리팩토링
-//setInterval 함수 내부의 코드를 setClock 함수로 분리하여 중복을 제거
+//첫 번째 for문 ->  forEach 메소드를 사용하여 간단하게 리팩토링
+//setInterval 함수 내부 코드를 setClock 함수로 분리하여 중복을 제거
 //setInterval 함수가 호출될 때마다 setClock 함수가 실행되어 시계의 초침, 분침, 시침이 정확한 시간을 가리키도록
