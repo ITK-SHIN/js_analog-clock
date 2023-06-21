@@ -1,10 +1,12 @@
 const AnalogClock = ($container) => {
   /********************************  html element 동적 생성하기 시작 ***********************/
-  for (let i = 1; i <= 3; i++){
-    $container.insertAdjacentHTML('beforeend', `<div class='hand' ></div>`);
+
+  const handClasses = ['hour', 'minute', 'second']
+  for (let i = 0; i < handClasses.length; i++){
+    $container.insertAdjacentHTML('beforeend', `<div class='hand ${handClasses[i]}' ></div>`);
   }
   const handdleClock =$container.querySelectorAll('.hand');
- handdleClock[0].className += ' hour';
+  handdleClock[0].className += ' hour';
   handdleClock[1].className += ' minute';
   handdleClock[2].className += ' second';
 
