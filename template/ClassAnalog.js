@@ -1,4 +1,5 @@
-class AnalogClock {
+/* class로 바꿔본 코드 */
+/* class AnalogClock {
   constructor($container) {
     this.$container = $container;
     this.createClockElements();
@@ -40,3 +41,4 @@ class AnalogClock {
 }
 
 export default AnalogClock;
+ */
