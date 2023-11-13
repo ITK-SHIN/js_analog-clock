@@ -1,15 +1,11 @@
 const AnalogClock = ($container) => {
   /********************************  html element 동적 생성하기 시작 ***********************/
-
   const handClasses = ['hour', 'minute', 'second']
-  handClasses.forEach(handleClass => {
-  $container.insertAdjacentHTML('beforeend', `<div class='hand ${handClasses}' ></div>`);
+  handClasses.forEach((handleClass) => {
+  $container.insertAdjacentHTML('beforeend', `<div class='hand ${handleClass}' ></div>`);
 })
 
-  const handdleClock =$container.querySelectorAll('.hand');
-  handdleClock[0].className += ' hour';
-  handdleClock[1].className += ' minute';
-  handdleClock[2].className += ' second';
+  const [handdleHour, handdleMinute, handdleSecond] = $container.querySelectorAll('.hand');
 
   for (let i = 1; i <= 12; i++){
     $container.insertAdjacentHTML('beforeend', `<div class="time time${i}">|</div>`);
@@ -31,17 +27,15 @@ function setClock() {
    //시침 -> 1시간당 30도, 1분당 몇도회전
     // ex) 4시 -> ex) 4 * 30 = 120도
     //ex2) 4시 15분 -> 4 *30 + 15 * 1/2
-  handdleClock[2].style.setProperty('--deg', `${degSec}`);
-  handdleClock[1].style.setProperty('--deg', `${degMin}`);
-  handdleClock[0].style.setProperty('--deg', `${degHour}`);
+
+  handdleSecond.style.setProperty('--deg', `${degSec}`);
+  handdleMinute.style.setProperty('--deg', `${degMin}`);
+  handdleHour.style.setProperty('--deg', `${degHour}`);
 }
 
   setClock();
   setInterval(setClock, 1000);
 };
-
-
-
 
 export default AnalogClock;
 
