@@ -1,15 +1,28 @@
 class AnalogClock {
+  #handleElements;
 
   constructor($container) {
     this.$container = $container;
     this.createClockElements();
+    this.#handleElements = this.setHandleElements();
     this.setClock();
     setInterval(() => this.setClock(), 1000);
     
   }
 
+  setHandleElements() {
+        const [handdleHour, handdleMinute, handdleSecond] = this.$container.querySelectorAll('.hand');
+    return ({
+      handdleMinute,
+      handdleHour,
+      handdleSecond
+    }
+)
+  }
+
   createClockElements() {
     const handClasses = ['hour', 'minute', 'second'];
+
     handClasses.forEach(handleClass => {
     this.$container.insertAdjacentHTML('beforeend', `<div class='hand ${handleClass}' ></div>`);
     });
@@ -20,8 +33,8 @@ class AnalogClock {
   }
 
   setClock() {
-    const [handdleHour, handdleMinute, handdleSecond] = this.$container.querySelectorAll('.hand');
-
+    const { handdleHour, handdleMinute, handdleSecond } = this.#handleElements
+    
     const now = new Date();
     const seconds = now.getSeconds();
     const minutes = now.getMinutes();

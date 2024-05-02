@@ -3,17 +3,17 @@ const AnalogClock = ($container) => {
   const handClasses = ['hour', 'minute', 'second']
   handClasses.forEach((handleClass) => {
   $container.insertAdjacentHTML('beforeend', `<div class='hand ${handleClass}' ></div>`);
-})
+}) //리플로우, 리렌더링 -> fragment 사용하면 좋을것. 
 
   const [handdleHour, handdleMinute, handdleSecond] = $container.querySelectorAll('.hand');
 
   for (let i = 1; i <= 12; i++){
     $container.insertAdjacentHTML('beforeend', `<div class="time time${i}">|</div>`);
-  }
+  } //리플로우, 리렌더링 -> fragment 사용하면 좋을것. 
   /************************  html element 동적 생성하기 끝  ***********************************/
 
   /*********************  자바스크립트로 --deg 값 변경하기 시작 *************************/
-function setClock() {
+const setClock = () => {
   const now = new Date();
   const seconds = now.getSeconds();  // 0 ~ 59 사이 정수 반환
   const minutes = now.getMinutes(); // 0 ~ 59 사이 정수 반환
@@ -22,8 +22,8 @@ function setClock() {
    //초침 , 분침 , 시침  -> 차례대로 각도
   //초침 -> 1초당 몇도 회전
   const degSec = seconds * (360 / 60);   //ex) 5초 -> 5 * 6 = 30도 
-  const degMin = minutes * (360 / 60) + seconds * (360 / 60 / 60);  // ex) 5분 -> 5 * 6 = 30도
-  const degHour = hours * (360 / 12) + minutes * (360 / 12 / 60);
+  const degMin = minutes * (360 / 60) + (degSec/ 60);  // ex) 5분 -> 5 * 6 = 30도
+  const degHour = (hours * 360  +   degMin) /12;
    //시침 -> 1시간당 30도, 1분당 몇도회전
     // ex) 4시 -> ex) 4 * 30 = 120도
     //ex2) 4시 15분 -> 4 *30 + 15 * 1/2
@@ -32,9 +32,8 @@ function setClock() {
   handdleMinute.style.setProperty('--deg', `${degMin}`);
   handdleHour.style.setProperty('--deg', `${degHour}`);
 }
-
-  setClock();
-  setInterval(setClock, 1000);
+setClock();
+setInterval(setClock, 1000);
 };
 
 export default AnalogClock;

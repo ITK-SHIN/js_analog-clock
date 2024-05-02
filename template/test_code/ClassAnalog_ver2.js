@@ -1,4 +1,4 @@
-
+// 단일 책임 원칙 적용
 class AnalogClock {
     constructor($container) {
         this.$container = $container;
