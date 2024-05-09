@@ -10,6 +10,9 @@ class AnalogClock {
 
   createClockElements() {
     const handClasses = ['hour', 'minute', 'second'];
+
+    this.$container.insertAdjacentHTML('beforebegin', `<h1 class="title">Analog clock</h1>`);
+
     handClasses.forEach(handleClass => {
     this.$container.insertAdjacentHTML('beforeend', `<div class='hand ${handleClass}' ></div>`);
     });
